@@ -22,4 +22,8 @@ public class Materia {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Turma turma;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Professor professor;
 }
