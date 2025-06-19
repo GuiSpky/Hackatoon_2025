@@ -2,7 +2,6 @@ package org.example.java.controller;
 
 import org.example.java.model.Aluno;
 import org.example.java.model.Materia;
-import org.example.java.service.AlunoService;
 import org.example.java.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("aluno")
+@RequestMapping("materia")
 public class MateriaController {
-
 
     @Autowired
     private MateriaService service;
