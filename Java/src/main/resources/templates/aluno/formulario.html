@@ -9,56 +9,55 @@
     <br/>
     <form>
         <div class="mb-3">
-            <input hidden="true" name="id" th:value="${compra.id}" type="text">
+            <input hidden="true" name="id" th:value="${aluno.id}" type="text">
 
-            <label class="form-label" for="fornecedor">Fornecedor</label>
-            <input class="form-control" id="fornecedor" name="fornecedor" th:value="${compra.fornecedor}" type="text">
+            <label class="form-label" for="nome">Nome</label>
+            <input class="form-control" id="nome" name="nome" th:value="${aluno.nome}" type="text">
+            <label class="form-label" for="turma">Turma</label>
+            <input class="form-control" id="turma" name="turma" th:value="${aluno.turma}" type="text">
+
         </div>
 
         <br/>
-        <div class="mb-3">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Item</th>
-                    <th>Valor</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item, stat : ${compra.itens}">
-                    <td>
-                        <input th:value="${item.id}" th:name="|itens[${stat.index}].id|" type="text" hidden="true">
-                        <input th:value="${item.id}" class="form-control" type="text" disabled>
-                    </td>
-                    <td>
-                        <input th:value="${item.descricao}" class="form-control"
-                               th:name="|itens[${stat.index}].descricao|" type="text" required>
-                    </td>
-                    <td><input th:value="${item.valor}" class="form-control" th:name="|itens[${stat.index}].valor|"
-                               type="text" required></td>
-                    <td>
-                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{'/compra/' + ${stat.index}}"
-                                type="submit">
-                            <i class="bi bi-dash-square"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input class="form-control" type="text" disabled></td>
-                    <td><input class="form-control" th:name="descricao" type="text"></td>
-                    <td><input class="form-control" th:name="valor" type="text"></td>
-                    <td>
-                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{/compra}" type="submit">
-                            <i class="bi bi-plus-square"></i>
-                        </button>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+<!--        <div class="mb-3">-->
+<!--            <table class="table">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>Código</th>-->
+<!--                    <th>Nome</th>-->
+<!--                    <th>Turma</th>-->
+<!--                    <th></th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--&lt;!&ndash;                <tr th:each="item, stat : ${aluno.turma}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input th:value="${turma.id}" th:name="|itens[${stat.index}].id|" type="text" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input th:value="${turma.id}" class="form-control" type="text" disabled>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input th:value="${turma.nome}" class="form-control"&ndash;&gt;-->
+<!--&lt;!&ndash;                               th:name="|itens[${stat.index}].descricao|" type="text" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{'/aluno/' + ${stat.index}}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                type="submit">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="bi bi-dash-square"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td><input class="form-control" type="text" disabled></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td><input class="form-control" th:name="nome" type="text"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{/aluno}" type="submit">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="bi bi-plus-square"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
 
-        <button class="btn btn-dark" formmethod="post" th:formaction="@{/compra/salvar}" type="submit" >Salvar</button>
+        <button class="btn btn-dark" formmethod="post" th:formaction="@{/aluno/salvar}" type="submit" >Salvar</button>
     </form>
 </div>
 <div th:insert="~{index :: script}"></div>

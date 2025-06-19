@@ -19,16 +19,16 @@ public class AlunoController {
     @Autowired
     private AlunoService service;
 
+    @GetMapping("/cadastro")
+    public String iniciar(Aluno aluno, Model model) {
+        model.addAttribute("aluno", new Aluno());
+        return "aluno/formulario";
+    }
+
     @GetMapping()
     public String listar(Model model) {
         model.addAttribute("aluno", service.listarTodos());
         return "aluno/lista";
-    }
-
-    @GetMapping("/novo")
-    public String iniciar(Aluno aluno, Model model) {
-        model.addAttribute("aluno", new Aluno());
-        return "aluno/cadastro";
     }
 
     @PostMapping()
