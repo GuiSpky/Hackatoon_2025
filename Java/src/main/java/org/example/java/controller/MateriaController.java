@@ -1,7 +1,9 @@
 package org.example.java.controller;
 
 import org.example.java.model.Aluno;
+import org.example.java.model.Materia;
 import org.example.java.service.AlunoService;
+import org.example.java.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,44 +12,43 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Arrays;
-
 @Controller
 @RequestMapping("aluno")
-public class AlunoController {
+public class MateriaController {
+
 
     @Autowired
-    private AlunoService service;
+    private MateriaService service;
 
     @GetMapping()
     public String listar(Model model) {
-        model.addAttribute("aluno", service.listarTodos());
-        return "aluno/lista";
+        model.addAttribute("materia", service.listarTodos());
+        return "materia/lista";
     }
 
     @GetMapping("/novo")
-    public String iniciar(Aluno aluno, Model model) {
+    public String iniciar(Materia materia, Model model) {
         model.addAttribute("aluno", new Aluno());
         return "aluno/cadastro";
     }
 
     @PostMapping()
-    public String salvar(Aluno aluno, Model model) {
+    public String salvar(Materia materia, Model model) {
         try {
-            service.salvar(aluno);
-            return "redirect:/alunos";
+            service.salvar(materia);
+            return "redirect:/materias";
         } catch (Exception e) {
             model.addAttribute(
                     "erro",
                     "Ocorreu um erro ao salvar o cadastro: " + e.getMessage());
-            return "aluno/cadastro";
+            return "materia/cadastro";
         }
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
-        model.addAttribute("aluno", service.buscarPorId(id));
-        return "aluno/cadastro";
+        model.addAttribute("materia", service.buscarPorId(id));
+        return "materia/cadastro";
     }
 
     @GetMapping("/excluir/{id}")
@@ -55,5 +56,4 @@ public class AlunoController {
         service.deletarPorId(id);
         return "redirect:/alunos";
     }
-
 }
