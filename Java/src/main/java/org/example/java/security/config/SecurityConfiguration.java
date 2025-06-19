@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/login", "/images/**", "/css/**", "/error/**").permitAll()
                         .requestMatchers("/banco/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
-                        .requestMatchers("/compra", "/compra/**").hasRole("ADMIN")
+                        .requestMatchers("/").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
                         .loginPage("/login")
