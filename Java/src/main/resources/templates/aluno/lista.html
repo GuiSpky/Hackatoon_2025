@@ -19,7 +19,7 @@
         <tr th:each="aluno : ${alunos}">
             <td th:text="${aluno.id}">0</td>
             <td th:text="${aluno.nome}">0</td>
-            <td th:text="${aluno.turma}">0</td>
+            <td th:text="${aluno.turma.nome}">0</td>
             <td>
                 <a th:href="@{'/aluno/editar/' + ${aluno.id}}" type="button" class="btn btn-outline-dark"
                    title="Editar">

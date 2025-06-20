@@ -1,7 +1,9 @@
 package org.example.java.controller;
 
 import org.example.java.model.Aluno;
+import org.example.java.repository.TurmaRepository;
 import org.example.java.service.AlunoService;
+import org.example.java.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,37 +20,36 @@ public class AlunoController {
 
     @Autowired
     private AlunoService service;
+    @Autowired
+    private TurmaService turmaService;
 
     @GetMapping("/cadastro")
     public String iniciar(Aluno aluno, Model model) {
         model.addAttribute("aluno", new Aluno());
+        model.addAttribute("turmas", turmaService.listarTodos());
+
         return "aluno/formulario";
     }
 
     @GetMapping()
     public String listar(Model model) {
-        model.addAttribute("aluno", service.listarTodos());
+        model.addAttribute("alunos", service.listarTodos());
         return "aluno/lista";
     }
 
-    @PostMapping()
+    @PostMapping("salvar")
     public String salvar(Aluno aluno, Model model) {
-        try {
             service.salvar(aluno);
-            return "redirect:/alunos";
-        } catch (Exception e) {
-            model.addAttribute(
-                    "erro",
-                    "Ocorreu um erro ao salvar o cadastro: " + e.getMessage());
-            return "aluno/cadastro";
-        }
+            return "redirect:/aluno";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         model.addAttribute("aluno", service.buscarPorId(id));
-        return "aluno/cadastro";
+        model.addAttribute("turmas", turmaService.listarTodos());
+        return "aluno/formulario";
     }
+
 
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable Long id, Model model) {
