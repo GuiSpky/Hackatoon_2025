@@ -9,17 +9,10 @@
     <br/>
     <form>
         <div class="mb-3">
-            <input hidden="true" name="id" th:value="${aluno.id}" type="text">
+            <input hidden="true" name="id" th:value="${turma.id}" type="text">
 
             <label class="form-label" for="nome">Nome</label>
-            <input class="form-control" id="nome" name="nome" th:value="${aluno.nome}" type="text">
-            <label class="form-label" for="turma">Turma</label>
-            <select class="form-control" id="turma" name="turma" th:value="${aluno.turma}" type="text">
-                <option value="">-- Escolha uma turma --</option>
-                <option th:each="item : ${turma}"
-                        th:value="${turma.id}"
-                        th:text="${turma.nome}">
-
+            <input class="form-control" id="nome" name="nome" th:value="${turma.nome}" type="text">
         </div>
 
         <br/>
@@ -61,7 +54,7 @@
 <!--            </table>-->
 <!--        </div>-->
 
-        <button class="btn btn-dark" formmethod="post" th:formaction="@{/aluno/salvar}" type="submit" >Salvar</button>
+        <button class="btn btn-dark" formmethod="post" th:formaction="@{/turma/salvar}" type="submit" >Salvar</button>
     </form>
 </div>
 <div th:insert="~{index :: script}"></div>
