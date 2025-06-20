@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:insert="~{index :: head}">
     <meta charset="UTF-8">
 </head>
@@ -16,52 +16,14 @@
             <label class="form-label" for="turma">Turma</label>
             <select class="form-control" id="turma" name="turma" th:value="${aluno.turma}" type="text">
                 <option value="">-- Escolha uma turma --</option>
-                <option th:each="item : ${turma}"
-                        th:value="${turma.id}"
-                        th:text="${turma.nome}">
+                <option th:each="item : ${aluno.turma}"
+                        th:text="${aluno.turma.nome}">
+                </option>
+            </select>
+            <br>
+            <button class="btn btn-dark" formmethod="post" th:formaction="@{/compra/salvar}" type="submit" >Salvar</button>
 
         </div>
-
-        <br/>
-<!--        <div class="mb-3">-->
-<!--            <table class="table">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>Código</th>-->
-<!--                    <th>Nome</th>-->
-<!--                    <th>Turma</th>-->
-<!--                    <th></th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--&lt;!&ndash;                <tr th:each="item, stat : ${aluno.turma}">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input th:value="${turma.id}" th:name="|itens[${stat.index}].id|" type="text" hidden="true">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input th:value="${turma.id}" class="form-control" type="text" disabled>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input th:value="${turma.nome}" class="form-control"&ndash;&gt;-->
-<!--&lt;!&ndash;                               th:name="|itens[${stat.index}].descricao|" type="text" required>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{'/aluno/' + ${stat.index}}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                type="submit">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <i class="bi bi-dash-square"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
-<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
-<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td><input class="form-control" type="text" disabled></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td><input class="form-control" th:name="nome" type="text"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{/aluno}" type="submit">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <i class="bi bi-plus-square"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
-<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
-
-        <button class="btn btn-dark" formmethod="post" th:formaction="@{/aluno/salvar}" type="submit" >Salvar</button>
     </form>
 </div>
 <div th:insert="~{index :: script}"></div>
