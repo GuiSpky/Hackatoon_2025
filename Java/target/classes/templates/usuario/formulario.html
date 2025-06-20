@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{index :: head}">
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="container">
+    <div th:include="index :: menu"></div>
+    <br/>
+    <form>
+        <div class="mb-3">
+            <input name="id" th:value="${usuario.id}" type="text" hidden="true">
+
+            <label for="nomeUsuario" class="form-label">Nome</label>
+            <input id="nomeUsuario" name="nome" th:value="${usuario.nome}" type="text" class="form-control">
+
+            <label for="loginUsuario" class="form-label">Login</label>
+            <input id="loginUsuario" name="login" th:value="${usuario.login}" type="email" class="form-control">
+
+            <label for="passwordUsuario" class="form-label">Password</label>
+            <input id="passwordUsuario" name="password" th:value="${usuario.password}" type="password" class="form-control">
+
+            <label for="privilegioUsuario" class="form-label">Privilégio</label>
+            <select id="privilegioUsuario" th:field="${usuario.privilegio}" class="form-control">
+                <option value="">Selecione...</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="PROFESSOR">PROFESSOR</option>
+                <option value="ALUNO">ALUNO</option>
+            </select>
+        </div>
+        <button th:formaction="@{/usuario/salvar}" formmethod="post" type="submit" class="btn btn-dark">Salvar</button>
+    </form>
+</div>
+<div th:insert="~{index :: script}"></div>
+</body>
+</html>

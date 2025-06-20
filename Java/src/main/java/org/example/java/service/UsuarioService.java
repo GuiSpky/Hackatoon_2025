@@ -1,6 +1,7 @@
 package org.example.java.service;
 
 import lombok.AllArgsConstructor;
+import org.example.java.model.Aluno;
 import org.example.java.model.Usuario;
 import org.example.java.repository.UsuarioRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,22 @@ public class UsuarioService implements UserDetailsService {
         return repository.findByLogin(username);
     }
 
+    // Salvar o médico
+    public void salvar(Usuario usuario) {
+        repository.save(usuario);
+    }
+
     public List<Usuario> listAll() {
         return repository.findAll();
+    }
+
+    // Busca o cadastro do médico através do id
+    public Usuario buscarPorId(Long id) {
+        return repository.findById(id).get();
+    }
+
+    // Deletar o médico
+    public void deletarPorId(Long id) {
+        repository.deleteById(id);
     }
 }

@@ -17,7 +17,6 @@ public class JavaApplication {
         return args -> {
 
             usuarioRepository.save(new Usuario(null, "admin", new BCryptPasswordEncoder().encode("admin"), "Admin", "ADMIN"));
-            usuarioRepository.save(new Usuario(null, "user", new BCryptPasswordEncoder().encode("user"), "user", "USER"));
         };
     }
 }
