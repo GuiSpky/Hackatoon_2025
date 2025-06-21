@@ -23,6 +23,6 @@ public class ItemPergunta {
 
     private Float valor;
     private String enunciado;
-    private Character resposta;
+    private String resposta;
 
 }

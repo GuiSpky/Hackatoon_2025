@@ -12,19 +12,19 @@
         <tr>
             <th>Código</th>
             <th>Nome</th>
-<!--            <th>Turma</th>-->
+            <th>Ações</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="turma : ${turma}">
-            <td th:text="${turma.id}">0</td>
-            <td th:text="${turma.nome}">0</td>
+        <tr th:each="prova : ${provas}">
+            <td th:text="${prova.id}">0</td>
+            <td th:text="${prova.nome}">0</td>
             <td>
-                <a th:href="@{'/turma/editar/' + ${turma.id}}" type="button" class="btn btn-outline-dark"
+                <a th:href="@{'/prova/editar/' + ${prova.id}}" type="button" class="btn btn-outline-dark"
                    title="Editar">
                     <i class="bi bi-pencil-square"></i>
                 </a>
-                <a th:href="@{'/turma/excluir/' + ${turma.id}}" type="button" class="btn btn-outline-dark"
+                <a th:href="@{'/prova/remover/' + ${prova.id}}" type="button" class="btn btn-outline-dark"
                    title="Remover">
                     <i class="bi bi-dash-square"></i>
                 </a>

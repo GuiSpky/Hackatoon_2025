@@ -16,43 +16,6 @@
         </div>
 
         <br/>
-<!--        <div class="mb-3">-->
-<!--            <table class="table">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>Código</th>-->
-<!--                    <th>Nome</th>-->
-<!--                    <th>Turma</th>-->
-<!--                    <th></th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--&lt;!&ndash;                <tr th:each="item, stat : ${aluno.turma}">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input th:value="${turma.id}" th:name="|itens[${stat.index}].id|" type="text" hidden="true">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input th:value="${turma.id}" class="form-control" type="text" disabled>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input th:value="${turma.nome}" class="form-control"&ndash;&gt;-->
-<!--&lt;!&ndash;                               th:name="|itens[${stat.index}].descricao|" type="text" required>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{'/aluno/' + ${stat.index}}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                type="submit">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <i class="bi bi-dash-square"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
-<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
-<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td><input class="form-control" type="text" disabled></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td><input class="form-control" th:name="nome" type="text"></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <td>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{/aluno}" type="submit">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <i class="bi bi-plus-square"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
-<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
 
         <button class="btn btn-dark" formmethod="post" th:formaction="@{/turma/salvar}" type="submit" >Salvar</button>
     </form>
