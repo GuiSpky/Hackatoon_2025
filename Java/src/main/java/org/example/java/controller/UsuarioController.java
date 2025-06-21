@@ -47,7 +47,7 @@ public class UsuarioController {
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         model.addAttribute("usuario", service.buscarPorId(id));
-        return "usuario/cadastro";
+        return "usuario/formulario";
     }
 
     @GetMapping("/excluir/{id}")

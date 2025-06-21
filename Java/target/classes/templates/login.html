@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{index :: head}">
     <meta charset="UTF-8">
+    <title>Login Admin</title>
 </head>
-<body>
-<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <form class="p-5 shadow bg-white rounded w-100" style="max-width: 400px;" method="post" th:action="@{/login}">
-        <h4 class="mb-4">Login Admin</h4>
-        <div class="mb-3">
-            <input class="form-control" type="text" name="username" placeholder="Usuário" required>
-        </div>
-        <div class="mb-3">
-            <input class="form-control" type="password" name="password" placeholder="Senha" required>
-        </div>
-        <div class="d-grid">
-            <button class="btn btn-outline-info" type="submit">Entrar</button>
-        </div>
-    </form>
-</div>
+<body class="bg-white d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+<form class="bg-primary text-white p-4 p-md-5 rounded shadow w-100" style="max-width: 400px;" method="post" th:action="@{/login}">
+    <h4 class="mb-4 text-center">Login Admin</h4>
+
+    <div class="mb-3">
+        <input type="text" class="form-control" name="username" placeholder="Usuário" required>
+    </div>
+
+    <div class="mb-4">
+        <input type="password" class="form-control" name="password" placeholder="Senha" required>
+    </div>
+
+    <div class="d-grid">
+        <button type="submit" class="btn btn-light">Entrar</button>
+    </div>
+</form>
+
 <div th:insert="~{index :: script}"></div>
 </body>
 </html>

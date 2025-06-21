@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
 </head>
 <body>
+<div th:include="index :: menu"></div>
 <div class="container">
-    <div th:include="index :: menu"></div>
     <br/>
     <form>
         <div class="mb-3">
@@ -23,9 +23,9 @@
             <label for="privilegioUsuario" class="form-label">Privilégio</label>
             <select id="privilegioUsuario" th:field="${usuario.privilegio}" class="form-control">
                 <option value="">Selecione...</option>
-                <option value="ADMIN">Administrador</option>
-                <option value="PROFESSOR">Professor</option>
-                <option value="ALUNO">Aluno</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="PROFESSOR">PROFESSOR</option>
+                <option value="ALUNO">ALUNO</option>
             </select>
         </div>
         <button th:formaction="@{/usuario/salvar}" formmethod="post" type="submit" class="btn btn-dark">Salvar</button>
