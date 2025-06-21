@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,10 @@ public class Prova {
 
     private String nome;
 
+    @Getter
+    @Setter
     @OneToMany(mappedBy = "prova", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<ItemPergunta> itens;
+    private List<ItemPergunta> itens = new ArrayList<>();
+
 }

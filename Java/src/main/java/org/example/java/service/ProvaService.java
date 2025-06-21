@@ -8,31 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 public class ProvaService {
 
+    @Autowired
+    private ProvaRepository provaRepository;
 
-    @Autowired// Injeta dependência automaticamente
-    private ProvaRepository repository;
-
-    // Salvar o médico
     public void salvar(Prova prova) {
-        repository.save(prova);
+        provaRepository.save(prova); // já salva com perguntas em cascade
     }
 
-    // Listar todos os médicos
     public List<Prova> listarTodos() {
-        return repository.findAll();
+        return provaRepository.findAll();
     }
 
-    // Busca o cadastro do médico através do id
-    public Prova buscarPorId(Long id) {
-        return repository.findById(id).get();
-    }
-
-    // Deletar o médico
     public void deletarPorId(Long id) {
-        repository.deleteById(id);
+        provaRepository.deleteById(id);
+    }
+
+    public Prova buscarPorId(Long id) {
+        return provaRepository.findById(id).orElse(null);
     }
 }
+

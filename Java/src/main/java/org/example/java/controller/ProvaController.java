@@ -1,74 +1,78 @@
 package org.example.java.controller;
 
+import org.example.java.model.Aluno;
 import org.example.java.model.Prova;
 import org.example.java.model.ItemPergunta;
+import org.example.java.service.AlunoService;
+import org.example.java.service.ItemPerguntaService;
 import org.example.java.service.ProvaService;
+import org.example.java.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-
 @Controller
 @RequestMapping("prova")
+@SessionAttributes("prova")
 public class ProvaController {
 
     @Autowired
     private ProvaService service;
 
-    @GetMapping()
-    public String iniciar(Prova prova, Model model) {
+    @ModelAttribute("prova")
+    public Prova prova() {
+        return new Prova();
+    }
+
+    @GetMapping("/cadastro")
+    public String iniciar(Model model) {
+        model.addAttribute("prova", new Prova());
         return "prova/formulario";
     }
 
-    @PostMapping()
-    public String inserir(Prova prova, ItemPergunta itemPergunta, Model model) {
-        itemPergunta.setId(null);
-
-        if (prova.getItens() == null) prova.setItens(Arrays.asList(itemPergunta));
-        else prova.getItens().add(itemPergunta);
-
-        return iniciar(prova, model);
+    @PostMapping("/adicionar")
+    public String adicionar(@ModelAttribute("prova") Prova prova,
+                            String enunciado, String resposta, Model model) {
+        ItemPergunta item = new ItemPergunta();
+        item.setEnunciado(enunciado);
+        item.setResposta(resposta);
+        prova.getItens().add(item);
+        return "prova/formulario";
     }
 
-    @PostMapping("{index}")
-    public String removerItem(@PathVariable int index, Prova prova, Model model) {
-        prova.getItens().remove(index);
-        return iniciar(prova, model);
-    }
-
-    @PostMapping("salvar")
-    public String salvar(Prova prova, Model model) {
-        try {
-            service.salvar(prova);
-            return "redirect:/prova/listar";
-        } catch (Exception e) {
-            model.addAttribute("errotitulo", "Algo de errado não deu certo: ");
-            model.addAttribute("erro", "Entre em contato!");
-            return iniciar(prova,model);
+    @PostMapping("/remover/{index}")
+    public String remover(@ModelAttribute("prova") Prova prova,
+                          @PathVariable int index) {
+        if (index >= 0 && index < prova.getItens().size()) {
+            prova.getItens().remove(index);
         }
+        return "prova/formulario";
     }
 
-    @GetMapping("listar")
-    public String listar(Model model) {
+    @PostMapping("/salvar")
+    public String salvar(@ModelAttribute("prova") Prova prova, SessionStatus status) {
+        for (ItemPergunta item : prova.getItens()) {
+            item.setProva(prova); // associar corretamente
+        }
+        service.salvar(prova);
+        status.setComplete(); // limpa a sessão
+        return "redirect:/prova/lista";
+    }
+
+    @GetMapping("/lista") // ✅ ESSA É A PARTE FALTANTE
+    public String listarProvas(Model model) {
         model.addAttribute("provas", service.listarTodos());
         return "prova/lista";
     }
 
-    @GetMapping("editar/{id}")
-    public String alterar(@PathVariable Long id, Model model) {
-        model.addAttribute("prova", service.buscarPorId(id));
-        return "prova/formulario";
-    }
-
-    @GetMapping("remover/{id}")
-    public String remover(@PathVariable Long id, Model model) {
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable Long id) {
         service.deletarPorId(id);
-        return "redirect:/prova/listar";
+        return "redirect:/prova/lista";
     }
-
 }
+
