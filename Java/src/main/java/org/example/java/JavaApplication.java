@@ -17,6 +17,8 @@ public class JavaApplication {
         return args -> {
 
             usuarioRepository.save(new Usuario(null, "admin@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Admin", "ADMIN"));
+            usuarioRepository.save(new Usuario(null, "professor@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Professor", "PROFESSOR"));
+            usuarioRepository.save(new Usuario(null, "aluno@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Aluno", "ALUNO"));
 //            usuarioRepository.save(new Usuario(null, "professor@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Professor", "PROFESSOR"));
         };
     }

@@ -28,8 +28,6 @@ public class UsuarioService implements UserDetailsService {
         return repository.findByLogin(username);
     }
 
-
-
     public void salvar(Usuario usuario) {
         // Verifica se está criando novo usuário ou editando existente
         if (usuario.getPassword() != null && !usuario.getPassword().isBlank()) {
@@ -44,6 +42,7 @@ public class UsuarioService implements UserDetailsService {
 
         repository.save(usuario);
     }
+
 
     public List<Usuario> listAll() {
         return repository.findAll();
