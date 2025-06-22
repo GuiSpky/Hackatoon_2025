@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
 </head>
 <body>
+<div th:insert="~{index :: menu}"></div>
 <div class="container">
-    <div th:insert="~{index :: menu}"></div>
     <br/>
     <form th:action="@{/aluno/salvar}" th:object="${aluno}" method="post">
         <div class="mb-3">
