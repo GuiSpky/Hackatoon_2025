@@ -27,7 +27,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizationRegistry -> authorizationRegistry
                         .requestMatchers("/login", "/logout", "/css/**", "/banco/**", "/api/login").permitAll()
                         .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/").hasRole("ADMIN")
                         .requestMatchers("/aluno", "/aluno/**").hasRole("ADMIN")
+                        .requestMatchers("/turma", "/turma/**").hasRole("ADMIN")
+                        .requestMatchers("/prova", "/prova/**").hasRole("ADMIN")
                         .requestMatchers("/usuario", "/usuario/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
