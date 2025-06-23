@@ -25,8 +25,11 @@ public class ProvaController {
 
     @ModelAttribute("prova")
     public Prova prova() {
-        return new Prova();
+        Prova prova = new Prova();
+        prova.setItens(new ArrayList<>());
+        return prova;
     }
+
 
     @GetMapping("/cadastro")
     public String iniciar(Model model) {
@@ -37,12 +40,20 @@ public class ProvaController {
     @PostMapping("/adicionar")
     public String adicionar(@ModelAttribute("prova") Prova prova,
                             String enunciado, String resposta, Model model) {
+
+        if (prova.getItens() == null) {
+            prova.setItens(new ArrayList<>());
+        }
+
         ItemPergunta item = new ItemPergunta();
         item.setEnunciado(enunciado);
         item.setResposta(resposta);
+
         prova.getItens().add(item);
+
         return "prova/formulario";
     }
+
 
     @PostMapping("/remover/{index}")
     public String remover(@ModelAttribute("prova") Prova prova,

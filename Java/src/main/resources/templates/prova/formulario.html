@@ -7,75 +7,74 @@
 <div class="container">
     <div th:insert="~{index :: menu}"></div>
     <br/>
-    <form th:object="${prova}" th:action="@{/prova/salvar}" method="post">
-        <input hidden="true" th:field="*{id}" />
+    <form>
+        <div class="mb-3">
+            <input hidden="true" name="id" th:value="${prova.id}" type="text">
 
-    <input type="hidden" th:field="*{id}" />
+            <label class="form-label" for="prova">Prova</label>
+            <input class="form-control" id="prova" name="prova" th:value="${prova.nome}" type="text">
+        </div>
 
-    <label class="form-label" for="nome">Nome da Prova</label>
-    <input class="form-control" id="nome" th:field="*{nome}" type="text" />
+        <br/>
+        <div class="mb-3">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Enunciado</th>
+                    <th>Resposta</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item, stat : ${prova.itens}">
+                    <td>
+                        <input th:value="${item.id}" th:name="|itens[${stat.index}].id|" type="text" hidden="true" required>
+                        <input th:value="${item.id}" class="form-control" type="text" disabled required>
+                    </td>
+                    <td>
+                        <input th:value="${item.enunciado}" class="form-control"
+                               th:name="|itens[${stat.index}].enunciado|" type="text" required>
+                    </td>
+                    <td><<select class="form-select" th:field="*{itens[__${stat.index}__].resposta}" required>
+                        <option value="">Selecione</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select></td>
+                    <td>
+                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{'/prova/' + ${stat.index}}"
+                                type="submit">
+                            <i class="bi bi-dash-square"></i>
+                        </button>
+                    </td>
+                </tr>
+                <!-- Linha para adicionar novo item -->
+                <tr>
+                    <td><input class="form-control" type="text" disabled required></td>
+                    <td><input class="form-control" name="novoEnunciado" type="text" required></td>
+                    <td>
+                        <select class="form-select" name="novaResposta" required>
+                            <option value="">Selecione</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{/prova/adicionar}" type="submit">
+                            <i class="bi bi-plus-square"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <br/>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Enunciado</th>
-            <th>Resposta</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item, stat : *{itens}">
-            <td>
-                <input type="hidden" th:field="*{itens[__${stat.index}__].id}" />
-                <span th:text="${stat.index + 1}">1</span>
-            </td>
-            <td>
-                <input class="form-control" th:field="*{itens[__${stat.index}__].enunciado}" type="text" required />
-            </td>
-            <td>
-                <select class="form-control" th:field="*{itens[__${stat.index}__].resposta}">
-                    <option value="">Selecione</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                </select>
-            </td>
-            <td>
-                <button class="btn btn-outline-danger"
-                        th:formaction="@{'/prova/remover/' + ${stat.index}}" formmethod="post" type="submit">
-                    <i class="bi bi-dash-square"></i>
-                </button>
-            </td>
-        </tr>
-
-        <!-- Linha para adicionar nova pergunta -->
-        <tr>
-            <td></td>
-            <td><input class="form-control" name="descricao" type="text" /></td>
-            <td>
-                <select class="form-control" name="resposta">
-                    <option value="">Selecione</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                </select>
-            </td>
-            <td>
-                <button class="btn btn-outline-success" th:formaction="@{/prova/adicionar}" formmethod="post" type="submit">
-                    <i class="bi bi-plus-square"></i>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <button class="btn btn-dark" th:formaction="@{/prova/salvar}" formmethod="post" type="submit">Salvar Prova</button>
-</form>
-
+        <button class="btn btn-dark" formmethod="post" th:formaction="@{/prova/salvar}" type="submit" >Salvar</button>
+    </form>
 </div>
 <div th:insert="~{index :: script}"></div>
 </body>
