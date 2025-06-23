@@ -22,6 +22,7 @@
             <th>#</th>
             <th>Enunciado</th>
             <th>Resposta</th>
+            <th>Valor</th>
             <th>Ações</th>
         </tr>
         </thead>
@@ -44,6 +45,10 @@
                 </select>
             </td>
             <td>
+                <label class="form-label" for="valor">Valor</label>
+                <input class="form-control" id="valor" th:field="*{itens[__${stat.index}__].valor}" type="text" />
+            </td>
+            <td>
                 <button class="btn btn-outline-danger"
                         th:formaction="@{'/prova/' + ${stat.index}}" formmethod="post" type="submit">
                     <i class="bi bi-dash-square"></i>
@@ -64,6 +69,7 @@
                     <option value="D">D</option>
                 </select>
             </td>
+            <td><input class="form-control" name="valor" type="text" required/></td>
             <td>
                 <button class="btn btn-outline-success" th:formaction="@{/prova/adicionar}" formmethod="post" type="submit">
                     <i class="bi bi-plus-square"></i>
