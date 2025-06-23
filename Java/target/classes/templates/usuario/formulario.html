@@ -7,32 +7,28 @@
 <div th:include="index :: menu"></div>
 <div class="container">
     <br/>
-    <form th:object="${usuario}" th:action="@{/usuario/salvar}" method="post">
+    <form>
         <div class="mb-3">
-            <input type="hidden" th:field="*{id}" />
+            <input name="id" th:value="${usuario.id}" type="text" hidden="true">
 
             <label for="nomeUsuario" class="form-label">Nome</label>
-            <input id="nomeUsuario" th:field="*{nome}" type="text" class="form-control"  />
-            <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+            <input id="nomeUsuario" name="nome" th:value="${usuario.nome}" type="text" class="form-control" required>
 
-            <label for="loginUsuario" class="form-label">Login (Email)</label>
-            <input id="loginUsuario" th:field="*{login}" type="email" class="form-control"  />
-            <div class="text-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+            <label for="loginUsuario" class="form-label">Login</label>
+            <input id="loginUsuario" name="login" th:value="${usuario.login}" type="email" class="form-control" required>
 
-            <label for="passwordUsuario" class="form-label">Senha</label>
-            <input id="passwordUsuario" th:field="*{password}" type="password" class="form-control"/>
-            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            <label for="passwordUsuario" class="form-label">Password</label>
+            <input id="passwordUsuario" name="password" th:value="${usuario.password}" type="password" class="form-control" required>
 
             <label for="privilegioUsuario" class="form-label">Privilégio</label>
-            <select id="privilegioUsuario" th:field="*{privilegio}" class="form-control">
+            <select id="privilegioUsuario" th:field="${usuario.privilegio}" class="form-control" required>
                 <option value="">Selecione...</option>
                 <option value="ADMIN">ADMIN</option>
                 <option value="PROFESSOR">PROFESSOR</option>
                 <option value="ALUNO">ALUNO</option>
             </select>
-            <div class="text-danger" th:if="${#fields.hasErrors('privilegio')}" th:errors="*{privilegio}"></div>
         </div>
-        <button type="submit" class="btn btn-dark">Salvar</button>
+        <button th:formaction="@{/usuario/salvar}" formmethod="post" type="submit" class="btn btn-dark">Salvar</button>
     </form>
 </div>
 <div th:insert="~{index :: script}"></div>

@@ -28,14 +28,14 @@
         <tbody>
         <tr th:each="item, stat : *{itens}">
             <td>
-                <input type="hidden" th:field="*{itens[__${stat.index}__].id}" />
+                <input type="hidden" th:field="*{itens[__${stat.index}__].id}" required/>
                 <span th:text="${stat.index + 1}">1</span>
             </td>
             <td>
                 <input class="form-control" th:field="*{itens[__${stat.index}__].enunciado}" type="text" required />
             </td>
             <td>
-                <select class="form-control" th:field="*{itens[__${stat.index}__].resposta}">
+                <select class="form-control" th:field="*{itens[__${stat.index}__].resposta}" required>
                     <option value="">Selecione</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -45,7 +45,7 @@
             </td>
             <td>
                 <button class="btn btn-outline-danger"
-                        th:formaction="@{'/prova/remover/' + ${stat.index}}" formmethod="post" type="submit">
+                        th:formaction="@{'/prova/' + ${stat.index}}" formmethod="post" type="submit">
                     <i class="bi bi-dash-square"></i>
                 </button>
             </td>
@@ -54,9 +54,9 @@
         <!-- Linha para adicionar nova pergunta -->
         <tr>
             <td></td>
-            <td><input class="form-control" name="descricao" type="text" /></td>
+            <td><input class="form-control" name="enuncidado" type="text" required/></td>
             <td>
-                <select class="form-control" name="resposta">
+                <select class="form-control" name="resposta" required>
                     <option value="">Selecione</option>
                     <option value="A">A</option>
                     <option value="B">B</option>

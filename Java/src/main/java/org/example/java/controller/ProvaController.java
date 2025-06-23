@@ -74,5 +74,11 @@ public class ProvaController {
         service.deletarPorId(id);
         return "redirect:/prova/lista";
     }
+
+    @GetMapping("editar/{id}")
+    public String alterar(@PathVariable Long id, Model model) {
+        model.addAttribute("prova", service.buscarPorId(id));
+        return "prova/formulario";
+    }
 }
 
