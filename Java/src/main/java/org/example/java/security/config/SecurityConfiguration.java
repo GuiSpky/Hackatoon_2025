@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -25,20 +24,22 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.sameOrigin()))//liberar o banco
-                .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizationRegistry -> authorizationRegistry
-                        .requestMatchers("/login", "/images/**", "/css/**", "/error/**").permitAll()
-                        .requestMatchers("/banco/**").permitAll()
+                        .requestMatchers("/login", "/logout", "/css/**", "/banco/**", "/api/login").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/").hasRole("ADMIN")
-                        .anyRequest().authenticated())
+                        .requestMatchers("/aluno", "/aluno/**").hasRole("ADMIN")
+                        .requestMatchers("/turma", "/turma/**").hasRole("ADMIN")
+                        .requestMatchers("/prova", "/prova/**").hasRole("ADMIN")
+                        .requestMatchers("/usuario", "/usuario/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll())
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer
                         .logoutUrl("/logout")
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                         .logoutSuccessUrl("/"))
                 .build();
     }

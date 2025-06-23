@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
 </head>
 <body>
+<div th:insert="~{index :: menu}"></div>
 <div class="container">
-    <div th:insert="~{index :: menu}"></div>
     <br/>
     <form th:object="${prova}" th:action="@{/prova/salvar}" method="post">
         <input hidden="true" th:field="*{id}" />
