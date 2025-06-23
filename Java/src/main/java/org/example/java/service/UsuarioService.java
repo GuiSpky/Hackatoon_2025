@@ -1,7 +1,6 @@
 package org.example.java.service;
 
 import lombok.AllArgsConstructor;
-import org.example.java.model.Aluno;
 import org.example.java.model.Usuario;
 import org.example.java.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,20 +28,24 @@ public class UsuarioService implements UserDetailsService {
         return repository.findByLogin(username);
     }
 
+    @Transactional
     public void salvar(Usuario usuario) {
-        // Verifica se está criando novo usuário ou editando existente
-        if (usuario.getPassword() != null && !usuario.getPassword().isBlank()) {
+        // Verifica se é novo ou edição
+        if (usuario.getId() == null) {
+            // Novo usuário → criptografa a senha
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        } else if (usuario.getId() != null) {
-            // Mantém a senha antiga se o campo estiver vazio ao editar
-            Usuario existente = repository.findById(usuario.getId()).orElse(null);
-            if (existente != null) {
-                usuario.setPassword(existente.getPassword());
+        } else {
+            // Usuário existente → mantém a senha antiga, a menos que tenha sido alterada
+            Usuario existente = repository.findById(usuario.getId()).orElseThrow();
+
+            if (!usuario.getPassword().equals(existente.getPassword())) {
+                usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             }
         }
 
         repository.save(usuario);
     }
+
 
 
     public List<Usuario> listAll() {

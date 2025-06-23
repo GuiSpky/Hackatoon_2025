@@ -21,7 +21,6 @@ public class UsuarioController {
 
     @GetMapping("/cadastro")
     public String iniciar(Usuario usuario, Model model) {
-        model.addAttribute("usuario", new Usuario());
         return "usuario/formulario";
     }
 
@@ -33,15 +32,8 @@ public class UsuarioController {
 
     @PostMapping("salvar")
     public String salvar(Usuario usuario, Model model) {
-        try {
             service.salvar(usuario);
             return "redirect:/usuario";
-        } catch (Exception e) {
-            model.addAttribute(
-                    "erro",
-                    "Ocorreu um erro ao salvar o cadastro: " + e.getMessage());
-            return "usuario/cadastro";
-        }
     }
 
     @GetMapping("/editar/{id}")

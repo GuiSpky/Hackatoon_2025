@@ -80,17 +80,7 @@
             </div>
         </div>
     </nav>
-
-    <!-- Alerta flutuante -->
-    <div th:if="${not #strings.isEmpty(erro)}"
-         class="alert alert-warning alert-dismissible fade show position-fixed top-0 end-0 m-3"
-         role="alert" style="max-width: 400px; z-index: 9999;">
-        <strong><span th:text="${errotitulo}"></span></strong>
-        <span th:text="${erro}"></span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-    </div>
 </div>
-
 
 <div th:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -12,16 +12,16 @@
             <input name="id" th:value="${usuario.id}" type="text" hidden="true">
 
             <label for="nomeUsuario" class="form-label">Nome</label>
-            <input id="nomeUsuario" name="nome" th:value="${usuario.nome}" type="text" class="form-control">
+            <input id="nomeUsuario" name="nome" th:value="${usuario.nome}" type="text" class="form-control" required>
 
             <label for="loginUsuario" class="form-label">Login</label>
-            <input id="loginUsuario" name="login" th:value="${usuario.login}" type="email" class="form-control">
+            <input id="loginUsuario" name="login" th:value="${usuario.login}" type="email" class="form-control" required>
 
             <label for="passwordUsuario" class="form-label">Password</label>
-            <input id="passwordUsuario" name="password" th:value="${usuario.password}" type="password" class="form-control">
+            <input id="passwordUsuario" name="password" th:value="${usuario.password}" type="password" class="form-control" required>
 
             <label for="privilegioUsuario" class="form-label">Privilégio</label>
-            <select id="privilegioUsuario" th:field="${usuario.privilegio}" class="form-control">
+            <select id="privilegioUsuario" th:field="${usuario.privilegio}" class="form-control" required>
                 <option value="">Selecione...</option>
                 <option value="ADMIN">ADMIN</option>
                 <option value="PROFESSOR">PROFESSOR</option>
