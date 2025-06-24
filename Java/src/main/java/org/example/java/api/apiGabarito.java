@@ -2,31 +2,43 @@ package org.example.java.api;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.example.java.model.Aluno;
+import org.example.java.model.Gabarito;
 import org.example.java.model.ItemPergunta;
 import org.example.java.model.Prova;
+import org.example.java.service.AlunoService;
 import org.example.java.service.GabaritoService;
 import org.example.java.service.ProvaService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 @RequestMapping("/api/gabarito")
 @RequiredArgsConstructor
-public class ApiGabarito {
+public class apiGabarito {
+
 
     private final GabaritoService gabaritoService;
     private final ProvaService provaService;
+    private final AlunoService alunoService;
 
-    @PostMapping("/corrigir/{provaId}")
-    public ResponseEntity<?> corrigirProva(@PathVariable Long provaId, @RequestBody RespostasAlunoDTO respostasAluno) {
+    @PostMapping("/corrigir/{provaId}/aluno/{alunoId}")
+    public ResponseEntity<?> corrigirProva(
+            @PathVariable Long provaId,
+            @PathVariable Long alunoId,
+            @RequestBody RespostasAlunoDTO respostasAluno) {
+
         Prova prova = provaService.buscarPorId(provaId);
+        Aluno aluno = alunoService.buscarPorId(alunoId);
 
         if (prova == null || prova.getItens().isEmpty()) {
             return ResponseEntity.badRequest().body("Prova não encontrada ou sem perguntas.");
+        }
+
+        if (aluno == null) {
+            return ResponseEntity.badRequest().body("Aluno não encontrado.");
         }
 
         List<String> respostas = respostasAluno.getRespostas();
@@ -45,6 +57,13 @@ public class ApiGabarito {
                 acertos++;
             }
         }
+
+        // Salvar o Gabarito
+        Gabarito novoGabarito = new Gabarito();
+        novoGabarito.setAluno(aluno);
+        novoGabarito.setProva(prova);
+        novoGabarito.setValor(Float.valueOf(acertos));
+        gabaritoService.salvar(novoGabarito);
 
         int total = gabarito.size();
         double percentual = ((double) acertos / total) * 100;
@@ -70,3 +89,4 @@ public class ApiGabarito {
         }
     }
 }
+
