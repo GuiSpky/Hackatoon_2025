@@ -73,6 +73,7 @@ public class apiGabarito {
         Gabarito novoGabarito = new Gabarito();
         novoGabarito.setAluno(aluno);
         novoGabarito.setProva(prova);
+        novoGabarito.setRespostaAluno(String.join(",", respostas));
         novoGabarito.setAcertos(Float.valueOf(acertos));
         novoGabarito.setTotal(gabarito.size());
         gabaritoService.salvar(novoGabarito);

@@ -29,6 +29,7 @@ public class Gabarito {
 
     private Float acertos;
     private Integer total;
+    private String respostaAluno;
 
     @ElementCollection
     private List<String> respostas;
