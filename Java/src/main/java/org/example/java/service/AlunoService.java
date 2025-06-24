@@ -34,4 +34,11 @@ public class AlunoService {
     public void deletarPorId(Long id) {
         repository.deleteById(id);
     }
+
+    public List<Aluno> listarAlunosPorTurmaId(Long turmaId) {
+        // A implementação real aqui dependerá de como seu modelo Aluno se relaciona com Turma.
+        // Se Aluno tem um campo 'turma' que é um objeto Turma, e Turma tem um 'id',
+        // você pode usar o Spring Data JPA para criar um método de consulta.
+        return repository.findByTurmaId(turmaId); // Exemplo de método no repositório
+    }
 }
