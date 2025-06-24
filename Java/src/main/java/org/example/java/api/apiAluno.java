@@ -1,63 +1,90 @@
 package org.example.java.api;
 
-import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.example.java.model.Aluno;
-import org.example.java.model.Turma;
+import org.example.java.model.Gabarito;
+import org.example.java.model.ItemPergunta;
+import org.example.java.model.Prova;
 import org.example.java.service.AlunoService;
+import org.example.java.service.GabaritoService;
 import org.example.java.service.ProvaService;
-import org.example.java.service.TurmaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Aluno")
-@AllArgsConstructor
-public class apiAluno {
+@RequestMapping("/api/gabarito")
+@RequiredArgsConstructor
+public class ApiGabarito {
 
-    private final AlunoService service;
+    private final GabaritoService gabaritoService;
     private final ProvaService provaService;
+    private final AlunoService alunoService;
 
-    @GetMapping()
-    public ResponseEntity<List<Aluno>> listar() {
-        return ResponseEntity.ok(service.listarTodos());
-    }
+    @PostMapping("/corrigir/{provaId}/aluno/{alunoId}")
+    public ResponseEntity<?> corrigirProva(
+            @PathVariable Long provaId,
+            @PathVariable Long alunoId,
+            @RequestBody RespostasAlunoDTO respostasAluno) {
 
-    @GetMapping("/turma/{turmaId}")
-    public ResponseEntity<List<Aluno>> listarPorTurma(@PathVariable(name = "turmaId") Long turmaId) {
-        List<Aluno> alunos = service.listarAlunosPorTurmaId(turmaId);
-        if (alunos.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(alunos);
-    }
+        Prova prova = provaService.buscarPorId(provaId);
+        Aluno aluno = alunoService.buscarPorId(alunoId);
 
-    @GetMapping("/{alunoId}/provas")
-    public ResponseEntity<?> provasDoAluno(@PathVariable Long alunoId) {
-        Aluno aluno = service.buscarPorId(alunoId);
-        if (aluno == null || aluno.getTurma() == null) {
-            return ResponseEntity.notFound().build();
+        if (prova == null || prova.getItens().isEmpty()) {
+            return ResponseEntity.badRequest().body("Prova não encontrada ou sem perguntas.");
         }
 
-        Long turmaId = aluno.getTurma().getId();
-        return ResponseEntity.ok(provaService.listarPorTurmaId(turmaId));
-    }
-    @PostMapping()
-    public ResponseEntity salvar(@RequestBody Aluno aluno) {
-        service.salvar(aluno);
-        return ResponseEntity.ok().build();
+        if (aluno == null) {
+            return ResponseEntity.badRequest().body("Aluno não encontrado.");
+        }
+
+        List<String> respostas = respostasAluno.getRespostas();
+        List<String> gabarito = prova.getItens()
+                .stream()
+                .map(ItemPergunta::getResposta)
+                .toList();
+
+        if (respostas.size() != gabarito.size()) {
+            return ResponseEntity.badRequest().body("Número de respostas não corresponde ao número de perguntas.");
+        }
+
+        int acertos = 0;
+        for (int i = 0; i < gabarito.size(); i++) {
+            if (gabarito.get(i).equalsIgnoreCase(respostas.get(i))) {
+                acertos++;
+            }
+        }
+
+        // Salvar o Gabarito
+        Gabarito novoGabarito = new Gabarito();
+        novoGabarito.setAluno(aluno);
+        novoGabarito.setProva(prova);
+        novoGabarito.setValor(Float.valueOf(acertos));
+        gabaritoService.salvar(novoGabarito);
+
+        int total = gabarito.size();
+        double percentual = ((double) acertos / total) * 100;
+
+        return ResponseEntity.ok(new ResultadoDTO(acertos, total, percentual));
     }
 
-    @PutMapping()
-    public ResponseEntity alterar(@RequestBody Aluno aluno) {
-        service.salvar(aluno);
-        return ResponseEntity.ok().build();
+    @Data
+    static class RespostasAlunoDTO {
+        private List<String> respostas;
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity deletar(@PathVariable(name = "id") Long id) {
-        service.deletarPorId(id);
-        return ResponseEntity.ok().build();
+    @Data
+    static class ResultadoDTO {
+        private int acertos;
+        private int total;
+        private double percentual;
+
+        public ResultadoDTO(int acertos, int total, double percentual) {
+            this.acertos = acertos;
+            this.total = total;
+            this.percentual = percentual;
+        }
     }
 }
