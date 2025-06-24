@@ -23,7 +23,6 @@ public class Prova {
 
     private String nome;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Turma turma;
