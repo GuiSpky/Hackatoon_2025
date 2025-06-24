@@ -26,5 +26,9 @@ public class Aluno {
     @JsonBackReference
     private Turma turma;
 
+    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Gabarito> gabaritos;
+
 
 }

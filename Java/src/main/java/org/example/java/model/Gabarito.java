@@ -19,17 +19,16 @@ public class Gabarito {
     @EqualsAndHashCode.Include
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonBackReference
-//    private CorrecaoProva correcaoProva;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonBackReference
-//    private Prova prova;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonBackReference
-//    private Aluno aluno;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Prova prova;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Aluno aluno;
+
+    private Float valor;
+    private String gabarito;
 
     @ElementCollection
     private List<String> respostas;

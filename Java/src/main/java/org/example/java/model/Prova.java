@@ -23,6 +23,9 @@ public class Prova {
 
     private String nome;
 
+    @OneToMany(mappedBy = "prova", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Gabarito> gabaritos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

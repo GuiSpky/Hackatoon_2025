@@ -16,7 +16,6 @@ public class apiTurma {
 
     private final TurmaService service;
 
-
     @GetMapping()
     public ResponseEntity<List<Turma>> listar() {
         return ResponseEntity.ok(service.listarTodos());
