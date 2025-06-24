@@ -26,6 +26,11 @@ public class GabaritoService {
         return gabaritoRepository.save(gabarito);
     }
 
+    public List<Gabarito> buscarPorAlunoId(Long alunoId) {
+        return gabaritoRepository.findByAlunoId(alunoId);
+    }
+
+
     public Gabarito atualizar(Long id, Gabarito novoGabarito) {
         return gabaritoRepository.findById(id)
                 .map(gabaritoExistente -> {

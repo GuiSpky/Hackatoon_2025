@@ -24,6 +24,17 @@ public class apiGabarito {
     private final ProvaService provaService;
     private final AlunoService alunoService;
 
+    @GetMapping("/{alunoId}")
+    public ResponseEntity<List<Gabarito>> listarPorAluno(@PathVariable Long alunoId) {
+        List<Gabarito> gabaritos = gabaritoService.buscarPorAlunoId(alunoId);
+
+        if (gabaritos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(gabaritos);
+    }
+
     @PostMapping("/corrigir/{provaId}/aluno/{alunoId}")
     public ResponseEntity<?> corrigirProva(
             @PathVariable Long provaId,
@@ -89,5 +100,7 @@ public class apiGabarito {
             this.percentual = percentual;
         }
     }
+
+
 }
 
