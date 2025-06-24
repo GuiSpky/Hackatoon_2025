@@ -27,8 +27,8 @@ public class Gabarito {
     @JsonBackReference
     private Aluno aluno;
 
-    private Float valor;
-    private String gabarito;
+    private Float acertos;
+    private Integer total;
 
     @ElementCollection
     private List<String> respostas;
