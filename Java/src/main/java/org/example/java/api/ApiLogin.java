@@ -11,7 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 
 @RestController
-@RequestMapping("/api/Login")
+@RequestMapping("/api/login")
 @AllArgsConstructor
 public class ApiLogin {
 
