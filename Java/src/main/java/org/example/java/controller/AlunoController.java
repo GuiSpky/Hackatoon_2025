@@ -39,8 +39,8 @@ public class AlunoController {
 
     @PostMapping("salvar")
     public String salvar(Aluno aluno, Model model) {
-            service.salvar(aluno);
-            return "redirect:/aluno";
+        service.salvar(aluno);
+        return "redirect:/aluno";
     }
 
     @GetMapping("/editar/{id}")

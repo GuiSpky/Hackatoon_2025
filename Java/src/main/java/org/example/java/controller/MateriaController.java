@@ -36,9 +36,7 @@ public class MateriaController {
             service.salvar(materia);
             return "redirect:/materias";
         } catch (Exception e) {
-            model.addAttribute(
-                    "erro",
-                    "Ocorreu um erro ao salvar o cadastro: " + e.getMessage());
+            model.addAttribute("erro", "Ocorreu um erro ao salvar o cadastro: " + e.getMessage());
             return "materia/cadastro";
         }
     }

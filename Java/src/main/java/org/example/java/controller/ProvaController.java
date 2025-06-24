@@ -15,6 +15,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 @Controller
 @RequestMapping("prova")
 @SessionAttributes("prova")
@@ -35,18 +36,17 @@ public class ProvaController {
     }
 
     @PostMapping("/adicionar")
-    public String adicionar(@ModelAttribute("prova") Prova prova,
-                            String enunciado, String resposta, Model model) {
+    public String adicionar(@ModelAttribute("prova") Prova prova, String enunciado, String resposta, Float valor, Model model) {
         ItemPergunta item = new ItemPergunta();
         item.setEnunciado(enunciado);
         item.setResposta(resposta);
+        item.setValor(valor);
         prova.getItens().add(item);
         return "prova/formulario";
     }
 
     @PostMapping("/remover/{index}")
-    public String remover(@ModelAttribute("prova") Prova prova,
-                          @PathVariable int index) {
+    public String remover(@ModelAttribute("prova") Prova prova, @PathVariable int index) {
         if (index >= 0 && index < prova.getItens().size()) {
             prova.getItens().remove(index);
         }
