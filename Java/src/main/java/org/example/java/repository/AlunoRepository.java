@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
-    List<Aluno> findByTurmaId(Long turma_id);
+    List<Aluno> findByTurmaId(Long turmaId);
 }

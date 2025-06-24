@@ -22,8 +22,10 @@ public class Prova {
 
     private String nome;
 
-    @Getter
-    @Setter
+    @OneToMany(mappedBy = "prova", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Aluno> alunos;
+
     @OneToMany(mappedBy = "prova", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<ItemPergunta> itens = new ArrayList<>();

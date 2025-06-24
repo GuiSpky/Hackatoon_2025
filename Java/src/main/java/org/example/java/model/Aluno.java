@@ -26,4 +26,9 @@ public class Aluno {
     @JsonBackReference
     private Turma turma;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Turma prova;
+
+
 }
