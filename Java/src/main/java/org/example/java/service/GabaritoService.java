@@ -29,9 +29,9 @@ public class GabaritoService {
     public Gabarito atualizar(Long id, Gabarito novoGabarito) {
         return gabaritoRepository.findById(id)
                 .map(gabaritoExistente -> {
-                    gabaritoExistente.setAluno(novoGabarito.getAluno());
-                    gabaritoExistente.setProva(novoGabarito.getProva());
-                    gabaritoExistente.setCorrecaoProva(novoGabarito.getCorrecaoProva());
+//                    gabaritoExistente.setAluno(novoGabarito.getAluno());
+//                    gabaritoExistente.setProva(novoGabarito.getProva());
+//                    gabaritoExistente.setCorrecaoProva(novoGabarito.getCorrecaoProva());
                     gabaritoExistente.setRespostas(novoGabarito.getRespostas());
                     return gabaritoRepository.save(gabaritoExistente);
                 })
