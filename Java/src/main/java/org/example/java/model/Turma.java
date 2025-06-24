@@ -1,5 +1,6 @@
 package org.example.java.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,5 +29,10 @@ public class Turma {
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Materia> materias;
+
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Prova> prova;
+
 
 }

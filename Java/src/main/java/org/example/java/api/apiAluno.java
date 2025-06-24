@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.example.java.model.Aluno;
 import org.example.java.model.Turma;
 import org.example.java.service.AlunoService;
+import org.example.java.service.ProvaService;
 import org.example.java.service.TurmaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.List;
 public class apiAluno {
 
     private final AlunoService service;
+    private final ProvaService provaService;
 
     @GetMapping()
     public ResponseEntity<List<Aluno>> listar() {
@@ -29,6 +31,17 @@ public class apiAluno {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(alunos);
+    }
+
+    @GetMapping("/{alunoId}/provas")
+    public ResponseEntity<?> provasDoAluno(@PathVariable Long alunoId) {
+        Aluno aluno = service.buscarPorId(alunoId);
+        if (aluno == null || aluno.getTurma() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Long turmaId = aluno.getTurma().getId();
+        return ResponseEntity.ok(provaService.listarPorTurmaId(turmaId));
     }
     @PostMapping()
     public ResponseEntity salvar(@RequestBody Aluno aluno) {
