@@ -14,6 +14,11 @@ public class ProvaService {
     @Autowired
     private ProvaRepository provaRepository;
 
+
+    public List<Prova> listarPorTurmaId(Long turmaId) {
+        return provaRepository.findByTurmaId(turmaId);
+    }
+
     public void salvar(Prova prova) {
         provaRepository.save(prova); // já salva com perguntas em cascade
     }
