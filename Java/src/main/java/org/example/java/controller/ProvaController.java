@@ -3,6 +3,7 @@ package org.example.java.controller;
 import org.example.java.model.Aluno;
 import org.example.java.model.Prova;
 import org.example.java.model.ItemPergunta;
+import org.example.java.model.Turma;
 import org.example.java.service.AlunoService;
 import org.example.java.service.ItemPerguntaService;
 import org.example.java.service.ProvaService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 @Controller
 @RequestMapping("prova")
 @SessionAttributes("prova")
@@ -22,6 +24,8 @@ public class ProvaController {
 
     @Autowired
     private ProvaService service;
+    @Autowired
+    private TurmaService turmaService;
 
     @ModelAttribute("prova")
     public Prova prova() {
@@ -31,22 +35,23 @@ public class ProvaController {
     @GetMapping("/cadastro")
     public String iniciar(Model model) {
         model.addAttribute("prova", new Prova());
+        model.addAttribute("turmas", turmaService.listarTodos());
         return "prova/formulario";
     }
 
     @PostMapping("/adicionar")
-    public String adicionar(@ModelAttribute("prova") Prova prova,
-                            String enunciado, String resposta, Model model) {
+    public String adicionar(@ModelAttribute("prova") Prova prova, String enunciado, String resposta, Float valor, Model model) {
+        model.addAttribute("turmas", turmaService.listarTodos());
         ItemPergunta item = new ItemPergunta();
         item.setEnunciado(enunciado);
         item.setResposta(resposta);
+        item.setValor(valor);
         prova.getItens().add(item);
         return "prova/formulario";
     }
 
     @PostMapping("/remover/{index}")
-    public String remover(@ModelAttribute("prova") Prova prova,
-                          @PathVariable int index) {
+    public String remover(@ModelAttribute("prova") Prova prova, @PathVariable int index) {
         if (index >= 0 && index < prova.getItens().size()) {
             prova.getItens().remove(index);
         }
@@ -55,13 +60,23 @@ public class ProvaController {
 
     @PostMapping("/salvar")
     public String salvar(@ModelAttribute("prova") Prova prova, SessionStatus status) {
-        for (ItemPergunta item : prova.getItens()) {
-            item.setProva(prova); // associar corretamente
+        if (prova.getTurma() == null || prova.getTurma().getId() == null) {
+            throw new IllegalArgumentException("Turma não foi selecionada.");
         }
+
+        Turma turma = turmaService.buscarPorId(prova.getTurma().getId());
+        prova.setTurma(turma);
+
+        for (ItemPergunta item : prova.getItens()) {
+            item.setProva(prova);
+        }
+
         service.salvar(prova);
-        status.setComplete(); // limpa a sessão
+        status.setComplete();
         return "redirect:/prova/lista";
     }
+
+
 
     @GetMapping("/lista") // ✅ ESSA É A PARTE FALTANTE
     public String listarProvas(Model model) {
@@ -73,6 +88,12 @@ public class ProvaController {
     public String excluir(@PathVariable Long id) {
         service.deletarPorId(id);
         return "redirect:/prova/lista";
+    }
+
+    @GetMapping("editar/{id}")
+    public String alterar(@PathVariable Long id, Model model) {
+        model.addAttribute("prova", service.buscarPorId(id));
+        return "prova/formulario";
     }
 }
 

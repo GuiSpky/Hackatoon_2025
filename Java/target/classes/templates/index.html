@@ -7,27 +7,79 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" th:href="@{/css/estilo.css}">
-    <title>Home</title>
+    <title>Painel Administrativo</title>
 </head>
 <body>
-<div class="container">
-    <div th:fragment="menu">
-        <h1>Compra & Venda</h1>
-        <a type="button" class="btn btn-outline-info" th:href="@{/}">Home</a>
-        <a type="button" class="btn btn-outline-warning" th:href="@{/banco}" target="_blank">Banco</a>
-        <a type="button" class="btn btn-outline-warning" th:href="@{/aluno}" >Alunos</a>
-        <a type="button" class="btn btn-outline-warning" th:href="@{/aluno/cadastro}" >Aluno cadastro</a>
-        <a type="button" class="btn btn-outline-warning" th:href="@{/turma}" >Turmas</a>
-        <a type="button" class="btn btn-outline-warning" th:href="@{/turma/cadastro}" >Turma cadastro</a>
-        <a type="button" class="btn btn-outline-warning" th:href="@{/prova/lista}" >Provas</a>
-        <a type="button" class="btn btn-outline-warning" th:href="@{/prova/cadastro}" >Provas cadastro</a>
-        <a type="button" class="btn btn-outline-warning" th:href="@{/logout}">Sair</a>
-        <div th:if="${not #strings.isEmpty(erro)}" class="alert alert-warning alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert"
-             style="max-width: 400px; z-index: 9999;">
-            <strong><span th:text="${errotitulo}"></span></strong><span th:text="${erro}"></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div th:fragment="menu">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" th:href="@{/}">Painel Administrativo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/}">Home</a>
+                    </li>
+
+                    <!-- Aluno Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                            Aluno
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/aluno}">Listar Alunos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/aluno/cadastro}">Cadastrar Aluno</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Turma Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                            Turma
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/turma}">Listar Turmas</a></li>
+                            <li><a class="dropdown-item" th:href="@{/turma/cadastro}">Cadastrar Turma</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                            Prova
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/prova/lista}">Listar Provas</a></li>
+                            <li><a class="dropdown-item" th:href="@{/prova/cadastro}">Cadastrar Prova</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Usuário Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                            Usuário
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/usuario}">Listar Usuários</a></li>
+                            <li><a class="dropdown-item" th:href="@{/usuario/cadastro}">Cadastrar Usuário</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/banco}" target="_blank">Banco</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/logout}">Sair</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </nav>
 </div>
 
 <div th:fragment="script">
