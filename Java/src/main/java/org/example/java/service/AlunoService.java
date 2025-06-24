@@ -34,4 +34,8 @@ public class AlunoService {
     public void deletarPorId(Long id) {
         repository.deleteById(id);
     }
+
+    public List<Aluno> listarAlunosPorTurmaId(Long turmaId) {
+        return repository.findByTurmaId(turmaId);
+    }
 }

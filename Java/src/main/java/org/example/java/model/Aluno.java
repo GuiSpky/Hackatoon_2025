@@ -26,4 +26,5 @@ public class Aluno {
     @JsonBackReference
     private Turma turma;
 
+
 }

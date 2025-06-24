@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,9 +27,17 @@ public class Usuario implements UserDetails {
     @EqualsAndHashCode.Include
     private Long id;
 
+    @NotBlank
+    @Email
     private String login;
+
+    @NotBlank
     private String password;
+
+    @NotBlank
     private String nome;
+
+    @NotBlank
     private String privilegio;
 
     @Override
