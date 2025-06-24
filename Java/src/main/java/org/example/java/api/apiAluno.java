@@ -22,6 +22,14 @@ public class apiAluno {
         return ResponseEntity.ok(service.listarTodos());
     }
 
+    @GetMapping("/turma/{turmaId}")
+    public ResponseEntity<List<Aluno>> listarPorTurma(@PathVariable(name = "turmaId") Long turmaId) {
+        List<Aluno> alunos = service.listarAlunosPorTurmaId(turmaId);
+        if (alunos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(alunos);
+    }
     @PostMapping()
     public ResponseEntity salvar(@RequestBody Aluno aluno) {
         service.salvar(aluno);
