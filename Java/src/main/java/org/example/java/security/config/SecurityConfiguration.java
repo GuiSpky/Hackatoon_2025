@@ -25,8 +25,8 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.sameOrigin()))//liberar o banco
                 .authorizeHttpRequests(authorizationRegistry -> authorizationRegistry
-                        .requestMatchers("/login", "/logout", "/css/**", "/banco/**", "/api/login").permitAll()
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/login", "/logout", "/css/**", "/banco/**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/").hasRole("ADMIN")
                         .requestMatchers("/aluno", "/aluno/**").hasRole("ADMIN")
                         .requestMatchers("/turma", "/turma/**").hasRole("ADMIN")

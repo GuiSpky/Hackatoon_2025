@@ -12,12 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class JavaApplication {
 
     public static void main(String[] args) {SpringApplication.run(JavaApplication.class, args);}
-    @Bean
-    public CommandLineRunner initDataBase(UsuarioRepository usuarioRepository) {
-        return args -> {
-            usuarioRepository.save(new Usuario(null, "admin@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Administrador", "ADMIN"));
-            usuarioRepository.save(new Usuario(null, "aluno@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Aluno", "ALUNO"));
-            usuarioRepository.save(new Usuario(null, "professor@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Professor", "PROFESSOR"));
-        };
-    }
+//    @Bean
+//    public CommandLineRunner initDataBase(UsuarioRepository usuarioRepository) {
+//        return args -> {
+//            usuarioRepository.save(new Usuario(null, "admin@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Administrador", "ADMIN"));
+//            usuarioRepository.save(new Usuario(null, "aluno@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Aluno", "ALUNO"));
+//            usuarioRepository.save(new Usuario(null, "professor@gmail.com", new BCryptPasswordEncoder().encode("123456"), "Professor", "PROFESSOR"));
+//        };
+//    }
 }
