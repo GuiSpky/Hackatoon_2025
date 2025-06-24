@@ -1,11 +1,11 @@
 package org.example.java.api;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.example.java.model.ItemPergunta;
 import org.example.java.model.Prova;
 import org.example.java.service.GabaritoService;
 import org.example.java.service.ProvaService;
-import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

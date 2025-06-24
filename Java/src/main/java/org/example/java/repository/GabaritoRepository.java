@@ -1,4 +1,7 @@
 package org.example.java.repository;
 
-public class GabaritoRepository {
+import org.example.java.model.Gabarito;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GabaritoRepository extends JpaRepository <Gabarito, Long> {
 }
