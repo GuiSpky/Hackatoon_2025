@@ -32,8 +32,8 @@ public class UsuarioController {
 
     @PostMapping("salvar")
     public String salvar(Usuario usuario, Model model) {
-            service.salvar(usuario);
-            return "redirect:/usuario";
+        service.salvar(usuario);
+        return "redirect:/usuario";
     }
 
     @GetMapping("/editar/{id}")
